@@ -1,26 +1,25 @@
 #include<stdio.h>
 #include<conio.h>
-void inicio ();
+#include<stdlib.h>
+void titulo ();
 int main (){
-	inicio();
-	
-	
-	
-	return 0;
-}
-void inicio (){
 	char tecla=1;
 	int i;
+	system("color 02");
 	while (tecla!=0){
-		puts("\t\t TITULO\n");
-		printf("\t**"); puts("\t Empezar");
-		printf("\t  ");puts("\t Salir");
+		titulo ();
+		puts("\t\t\tSelecciona:");
+		printf("\t\t\t->"); puts(" Empezar");
+		printf("\t\t\t  "); puts(" Salir");
+		puts("\n\t\t\t\t\t\tWCORP. 2020.");
 		tecla=getch();
 		system("cls");
 		if (tecla==80) {
-			puts("\t\t TITULO\n");
-			printf("\t  "); puts("\t Empezar");
-			printf("\t**");puts("\t Salir");
+			titulo();
+			puts("\t\t\tSelecciona:");
+			printf("\t\t\t  "); puts(" Empezar");
+			printf("\t\t\t->"); puts(" Salir");
+			puts("\n\t\t\t\t\t\tWCORP. 2020.");
 			tecla=getch();
 			system("cls");
 			if (tecla==13){
@@ -34,4 +33,16 @@ void inicio (){
 			//pantalla vida puntos en 0 y comienza partida
 		}
 	}
+	return 0;
+}
+void titulo (){
+	puts("\t===================================================\n");
+	puts("\t   #####            ##         ##  ##");
+	puts("\t ##     ##                     ## ##    ##");
+	puts("\t ##     ##  ##  ##  ##  #####  ####    #  #  # ###");
+	puts("\t ##     ##  ##  ##  ##  ##     ####    ####  ##"); 
+	puts("\t ##   # ##  ##  ##  ##  ##     ## ##   #     ##");
+	puts("\t   #####    ######  ##  #####  ##  ##  ####  ##");
+	puts("\t        #   ");
+	puts("\t===================================================\n");
 }
