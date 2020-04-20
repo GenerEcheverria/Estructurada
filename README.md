@@ -4,4 +4,7 @@ Proyecto
 
 [Trello](https://trello.com/invite/b/cGjtn6SA/7185b1827e89084c7b39e801114292bc/estructurada)
 
-pong, asteroid, piedra papel o tijera, snake, nave esquivando, recolección, QTE (apagar vela), preguntas rápidas 
+pong, asteroid, preguntas rápidas 
+
+
+opciones posteriores: piedra papel o tijera, snake, nave esquivando, recolección, QTE (apagar vela)
