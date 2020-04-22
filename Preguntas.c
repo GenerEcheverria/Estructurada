@@ -1,18 +1,31 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
-int preguntas();
+int preguntas(int acierto);
 int main () {
-	printf("%d", preguntas());
+	
+	int acierto=7; //para probar aumento de velocidad
+	printf("%d", preguntas(acierto));
 	return 0;
 }
-int preguntas() {
+int preguntas(int acierto) {
 	int punto=0, opcion, respuesta;
-	opcion=1; // para probar
 	time_t tiempoInicial=time(NULL);
-	float tiempoLimite=10.0; 
+	float tiempoLimite; 
 	srand(time(NULL)); //probar
 	opcion=rand()%10; //cambiar dependiendo del numero de preguntas
+	if (acierto<=4) {
+		tiempoLimite=10.0;
+	}
+	else {
+		if (acierto<=7) {
+			tiempoLimite = 8;
+		}
+		else {
+			tiempoLimite=6;
+		}
+	}
+	
 	switch (opcion) {
 			case 0: puts("El resultado de 7 x 8 es:");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
