@@ -131,6 +131,30 @@ void input(char campo[25][60],int *navex, int *navey){
 				*navey=*navey+1;	
 			}
 		}
+		if(key=='s'||key=='S'){
+			if((*navex+1)!=24){
+				campo[*navex+2][*navey]='X';
+				campo[*navex+1][*navey]='X';
+				campo[*navex+2][*navey+1]='X';
+				campo[*navex+2][*navey-1]='X';
+	            campo[*navex][*navey]=' ';
+	            campo[*navex+1][*navey-1]=' ';
+	            campo[*navex+1][*navey+1]=' ';
+				*navex=*navex+1;	
+			}
+		}
+		    if(key=='W'||key=='w'){
+			if((*navex-1)!=7){
+				campo[*navex-1][*navey]='X';
+				campo[*navex][*navey]='X';
+				campo[*navex][*navey+1]='X';
+				campo[*navex][*navey-1]='X';
+	            campo[*navex+1][*navey]=' ';
+	            campo[*navex+1][*navey-1]=' ';
+	            campo[*navex+1][*navey+1]=' ';
+				*navex=*navex-1;	
+			}
+		}
 	}
 return;	
 }
