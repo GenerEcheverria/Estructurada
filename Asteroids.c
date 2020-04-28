@@ -93,8 +93,10 @@ int bajar (char campo[25][60]){
 	for(i=23;i>1;i--){
 		for(j=H-1;j>1;j--){
 			if(campo[i][j]!='X'){
+			if(campo[i-1][j]!='X'){
 			campo[i][j]=campo[i-1][j];
 			campo[i-1][j]=' ';
+		}
 		}else{
 			if(campo[i-1][j]=='@'){
 				w=1;
@@ -121,7 +123,7 @@ void input(char campo[25][60],int *navex, int *navey){
 			}
 		}
 		if(key=='d'||key=='D'){
-			if((*navey-1)!=1){
+			if((*navey+1)!=59){
 				campo[*navex][*navey+1]='X';
 				campo[*navex][*navey]=' ';
 				campo[*navex+1][*navey+2]='X';
@@ -131,7 +133,7 @@ void input(char campo[25][60],int *navex, int *navey){
 				*navey=*navey+1;	
 			}
 		}
-		if(key=='s'||key=='S'){
+			if(key=='s'||key=='S'){
 			if((*navex+1)!=24){
 				campo[*navex+2][*navey]='X';
 				campo[*navex+1][*navey]='X';
