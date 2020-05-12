@@ -14,7 +14,7 @@ int main (){
 		puts("\n\t\t\t\t\t\tWCORP. 2020.");
 		tecla=getch();
 		system("cls");
-		if (tecla==80) {
+		if (tecla=='s'||tecla=='S') {
 			titulo();
 			puts("\t\t\tSelecciona:");
 			printf("\t\t\t  "); puts(" Empezar");
@@ -25,12 +25,16 @@ int main (){
 			if (tecla==13){
 				break;
 			}
-			if (tecla==72){
+			if (tecla=='w'||tecla=='W'){
 				continue;
 			}
 		}
 		if (tecla==13) {
 			//pantalla vida puntos en 0 y comienza partida
+			system("cls");
+			puts("hola");
+			system("pause");//prueba
+			system("cls");
 		}
 	}
 	return 0;
