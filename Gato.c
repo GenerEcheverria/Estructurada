@@ -36,21 +36,21 @@ int loop (char tabla[3][3]){
 		}
 		j=ganador(tabla);
 		i++;
-	}while(i<=9 && j==2);
+	}while(i<=8 && j==2);
 	system("cls");
 	imprimirTabla(tabla);
 	if (j==1){
-		puts("Ganaste");
+		puts("\tGanaste");
 		return 1;
 	}
 	else {
 		if (j==0) {
-			puts("Perdiste"); 
+			puts("\tPerdiste"); 
 			return 0;
 		}
 		else {
-			puts ("Empate");
-			return 0;
+			puts ("\tEmpate");
+			return 2;
 		}
 	} 
 }
