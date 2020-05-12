@@ -28,10 +28,11 @@ int loop (char tabla[3][3]){
 		system("cls");
 		imprimirTabla(tabla);
 		if (i%2==0){
-			introducirFicha(tabla);
+			
+			introducirIA(tabla);
 		}
 		else {
-			introducirIA(tabla);
+			introducirFicha(tabla);
 		}
 		j=ganador(tabla);
 		i++;
@@ -64,7 +65,9 @@ void iniciarTabla(char tabla[3][3]){
 }
 void imprimirTabla(char tabla[3][3]){
 	int i,j;
+	puts("\n");
 	for (i=0;i<3;i++){
+		printf("\t\t");
 		for (j=0;j<3;j++){
 			if (j<2){
 				printf(" %c |",tabla[i][j]);
@@ -74,7 +77,7 @@ void imprimirTabla(char tabla[3][3]){
 			}
 		}
 		if (i<2){
-			puts("\n-----------");
+			puts("\n\t\t-----------");
 		}
 	}
 	puts("\n\n");
@@ -84,7 +87,7 @@ void introducirFicha(char tabla[3][3]){
 	char ficha;
 	do {
 		do{
-			printf("Coloca tu ficha: ");
+			printf("\tColoca tu ficha: ");
 			fflush(stdin);
 			scanf("%c", &ficha);
 		} while(ficha<'1'||ficha>'9');
@@ -95,7 +98,7 @@ void introducirFicha(char tabla[3][3]){
 				j=0;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
@@ -113,7 +116,7 @@ void introducirFicha(char tabla[3][3]){
 				j=2;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
@@ -122,7 +125,7 @@ void introducirFicha(char tabla[3][3]){
 				j=0;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
@@ -131,7 +134,7 @@ void introducirFicha(char tabla[3][3]){
 				j=1;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
@@ -140,7 +143,7 @@ void introducirFicha(char tabla[3][3]){
 				j=2;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
@@ -149,7 +152,7 @@ void introducirFicha(char tabla[3][3]){
 				j=0;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
@@ -158,7 +161,7 @@ void introducirFicha(char tabla[3][3]){
 				j=1;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
@@ -167,7 +170,7 @@ void introducirFicha(char tabla[3][3]){
 				j=2;
 				if (tabla[i][j]=='X' || tabla[i][j]=='O'){
 					k=1;
-					puts("Casilla ocupada");
+					puts("\tCasilla ocupada");
 				}
 				break;
 			}
