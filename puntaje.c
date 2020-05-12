@@ -31,17 +31,17 @@ void puntaje (int puntos, int vidas){
 	switch (vidas){
 		case 1:
 			system("color 04");
-			puts("\t\t     VIDAS\n");
+			puts("\n\n\t\t     VIDAS\n");
 			unCorazon();
 			printf("\n\t\t  PUNTAJE: %d",puntos); break;
 		case 2:
 			system("color 06");
-			puts("\t\t     VIDAS\n");
+			puts("\n\n\t\t     VIDAS\n");
 			dosCorazones();
 			printf("\n\t\t  PUNTAJE: %d",puntos); break;
 		case 3:
 			system("color 02");
-			puts("\t\t     VIDAS\n");
+			puts("\n\n\t\t     VIDAS\n");
 			tresCorazones();
 			printf("\n\t\t  PUNTAJE: %d",puntos); break;
 	}
