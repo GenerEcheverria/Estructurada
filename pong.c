@@ -13,10 +13,15 @@ int gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int i
 void draw(char campo[V][H]);
 void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol);
 void update(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
-
-
+int pong();
 
 int main () {
+	printf("%d", pong());
+	system("pause");
+	
+}
+
+int pong () {
 	int pelX,pelY,inijug,finjug,iniia,finia;//posicion
 	int modX, modY, modia;//modificacion
 	char campo[V][H];
@@ -41,9 +46,12 @@ int main () {
 	inicio (campo,pelX,pelY,inijug,finjug,iniia,finia);
 	final = gameloop (campo, pelX,pelY,inijug,finjug,iniia,finia,modX,modY,modia);
 	system("cls");
-	printf("%d", final);
-	
-	return 0;
+	if (final==1){
+		return 0;
+	}
+	if (final==2){
+		return 1;
+	}
 }
 
 void inicio(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia){
