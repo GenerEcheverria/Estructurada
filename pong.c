@@ -9,7 +9,7 @@ void raqjug(char campo[V][H], int inijug, int finjug);
 void raqia(char campo[V][H], int iniia, int finia);
 void pel( char campo[V][H], int pelX, int pelY );
 void leercamp(char campo[V][H]);
-void gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia);
+int gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia);
 void draw(char campo[V][H]);
 void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol);
 void update(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
@@ -20,7 +20,7 @@ int main () {
 	int pelX,pelY,inijug,finjug,iniia,finia;//posicion
 	int modX, modY, modia;//modificacion
 	char campo[V][H];
-	
+	int final = 0;
 	//posicion
 	pelX = 37; 
 	pelY=10;
@@ -39,8 +39,10 @@ int main () {
 	modia = -1;
 	
 	inicio (campo,pelX,pelY,inijug,finjug,iniia,finia);
-	gameloop (campo, pelX,pelY,inijug,finjug,iniia,finia,modX,modY,modia);
-	system("pause");
+	final = gameloop (campo, pelX,pelY,inijug,finjug,iniia,finia,modX,modY,modia);
+	system("cls");
+	printf("%d", final);
+	
 	return 0;
 }
 
@@ -97,16 +99,24 @@ for(i = 0;i<V;i++){
 	}
 }
 
-void gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia){
+int gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia){
 	int gol;
 	gol = 0;
-	
+	int res = 0;
 	do{
 		draw (campo);//dibujar en pantalla
 		input (campo,&pelX,&pelY,&inijug,&finjug,&iniia,&finia,&modX,&modY,&modia, &gol);//verificar y modificar posiciones
 		update (campo,pelX,pelY,inijug,finjug,iniia,finia);	//actualizar matriz de campo
-		sleep(1);
+	
 	}while (gol == 0);
+	
+	if(pelX==1){
+			res = 1;
+		}
+		else{
+			res = 2;
+		}
+	return res;
 	
 }		
 void draw(char campo[V][H]){
