@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include<windows.h>
-#define V 21
-#define H 75
+#define Vertical 21
+#define Horizontal 75
 
-void inicio(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
-void borde (char campo[V][H]);
-void raqjug(char campo[V][H], int inijug, int finjug);
-void raqia(char campo[V][H], int iniia, int finia);
-void pel( char campo[V][H], int pelX, int pelY );
-void leercamp(char campo[V][H]);
-int gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia);
-void draw(char campo[V][H]);
-void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol);
-void update(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
+void inicio(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
+void bordePong (char campo[Vertical][Horizontal]);
+void raqjug(char campo[Vertical][Horizontal], int inijug, int finjug);
+void raqia(char campo[Vertical][Horizontal], int iniia, int finia);
+void pel( char campo[Vertical][Horizontal], int pelX, int pelY );
+void leercamp(char campo[Vertical][Horizontal]);
+int gameloopPong(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia);
+void drawPong(char campo[Vertical][Horizontal]);
+void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol);
+void update(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
 int pong();
 
 int main () {
@@ -24,7 +24,7 @@ int main () {
 int pong () {
 	int pelX,pelY,inijug,finjug,iniia,finia;//posicion
 	int modX, modY, modia;//modificacion
-	char campo[V][H];
+	char campo[Vertical][Horizontal];
 	int final = 0;
 	//posicion
 	pelX = 37; 
@@ -44,7 +44,7 @@ int pong () {
 	modia = -1;
 	
 	inicio (campo,pelX,pelY,inijug,finjug,iniia,finia);
-	final = gameloop (campo, pelX,pelY,inijug,finjug,iniia,finia,modX,modY,modia);
+	final = gameloopPong (campo, pelX,pelY,inijug,finjug,iniia,finia,modX,modY,modia);
 	system("cls");
 	if (final==1){
 		return 0;
@@ -54,21 +54,21 @@ int pong () {
 	}
 }
 
-void inicio(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia){
-	borde(campo);
+void inicio(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia){
+	bordePong(campo);
 	raqjug(campo, inijug, finjug);
 	raqia(campo, iniia, finia); 
 	pel(campo, pelX, pelY);
 }
 
-void borde (char campo[V][H]){
+void bordePong (char campo[Vertical][Horizontal]){
 	int i,j;
-	for(i = 0; i < V; i++){
-		for(j = 0; j < H; j++){
-			if(i == 0 || i==V-1){
+	for(i = 0; i < Vertical; i++){
+		for(j = 0; j < Horizontal; j++){
+			if(i == 0 || i==Vertical-1){
 				campo[i][j] = '-';
 			}
-			else if (j == 0 || j == H-1){
+			else if (j == 0 || j == Horizontal-1){
 				campo[i][j] = '|';
 			}
 			else{
@@ -78,7 +78,7 @@ void borde (char campo[V][H]){
 	}
 }
 
-void raqjug(char campo[V][H], int inijug, int finjug){
+void raqjug(char campo[Vertical][Horizontal], int inijug, int finjug){
 	int i, j;
 	for(i = inijug; i <= finjug; i++){
 		for(j = 2; j <= 3; j++){
@@ -86,34 +86,34 @@ void raqjug(char campo[V][H], int inijug, int finjug){
 		}
 	}
 }
-void raqia(char campo[V][H], int iniia, int finia){
+void raqia(char campo[Vertical][Horizontal], int iniia, int finia){
 	int i,j;
 	for(i = iniia; i < finia; i++){
-		for(j = H-4; j <= H - 3; j++){
+		for(j = Horizontal-4; j <= Horizontal - 3; j++){
 			campo[i][j] = 'X';	
 		}
 	}
 }
-void pel ( char campo[V][H], int pelX, int pelY ){
+void pel ( char campo[Vertical][Horizontal], int pelX, int pelY ){
 	campo[pelY][pelX] = 'O';
 }
-void leercamp(char  campo[V][H]){
+void leercamp(char  campo[Vertical][Horizontal]){
 int i,j;
-for(i = 0;i<V;i++){
-	for(j= 0; j<H;j++){
+for(i = 0;i<Vertical;i++){
+	for(j= 0; j<Horizontal;j++){
 		printf ("%c", campo[i][j]);
 	}
 	printf("\n");
 	}
 }
 
-int gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia){
+int gameloopPong(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia){
 	int gol;
 	gol = 0;
 	int res = 0;
 	do{
-		draw (campo);//dibujar en pantalla
-		input (campo,&pelX,&pelY,&inijug,&finjug,&iniia,&finia,&modX,&modY,&modia, &gol);//verificar y modificar posiciones
+		drawPong (campo);//dibujar en pantalla
+		inputPong (campo,&pelX,&pelY,&inijug,&finjug,&iniia,&finia,&modX,&modY,&modia, &gol);//verificar y modificar posiciones
 		update (campo,pelX,pelY,inijug,finjug,iniia,finia);	//actualizar matriz de campo
 	
 	}while (gol == 0);
@@ -127,20 +127,20 @@ int gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int i
 	return res;
 	
 }		
-void draw(char campo[V][H]){
+void drawPong(char campo[Vertical][Horizontal]){
 	system("cls");
 	leercamp(campo);
 }
 
-void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol){
+void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol){
 	int i;
 	char key;
 	//verificacion
-	if (*pelY == 1|| *pelY== V-2){
+	if (*pelY == 1|| *pelY== Vertical-2){
 		*modY *=-1;
 	}
 	
-	if (*pelX == 1|| *pelX == H - 2){
+	if (*pelX == 1|| *pelX == Horizontal - 2){
 		*gol = 1;
 	}
 	
@@ -152,13 +152,13 @@ void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *i
 		}
 	}
 	
-	if (*pelX == H - 5){
+	if (*pelX == Horizontal - 5){
 		for( i = (*iniia); i <= (*finia); i++){
 		 *modX *=-1;
 		}
 	}
 	
-	if(*iniia=1 || *finia ==V-1){
+	if(*iniia=1 || *finia ==Vertical-1){
 		*modia *=-1;
 	}
 	
@@ -187,7 +187,7 @@ void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *i
 			}
 			
 			if(key == 's'){
-				if(*finjug != V-2){
+				if(*finjug != Vertical-2){
 					*inijug +=1;
 					*finjug += 1;
 				}
@@ -196,8 +196,8 @@ void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *i
 	}
 }
 
-void update(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int iniia, int finia){
-	borde(campo);
+void update(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia){
+	bordePong(campo);
 	raqjug(campo, inijug, finjug);
 	raqia(campo, iniia, finia); 
 	pel(campo, pelX, pelY);
