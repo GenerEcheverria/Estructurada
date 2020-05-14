@@ -1,22 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include<time.h>
+int asteroid ();
 void borde (char campo[25][60]);
 int bajar (char campo[25][60]);
 void nave(char campo[25][60],int navex, int navey);
 void meteorito(char campo[25][60]);
 void imprimir(char campo[25][60]);
 void draw(char campo[25][60]);
-void gameloop(char campo[25][60],int navex, int navey);
+int gameloop(char campo[25][60],int navex, int navey);
 void input(char campo[25][60],int *navex, int *navey);
-int main(){
+int main (){
+	printf("%d", asteroid());
+	system ("pause");
+	return;
+}
+int asteroid(){
 	char campo[25][60];
-	int navex=22,navey=30;
+	int navex=22,navey=30, resultado;
 	borde(campo);
 	nave(campo,navex,navey);
 	imprimir(campo);
-	gameloop(campo,navex,navey);
-	return 0;
+	resultado=gameloop(campo,navex,navey);
+	return resultado;
 }
 void borde (char campo[25][60]){
 	int i,j,V=25,H=60;
@@ -50,8 +57,11 @@ void imprimir(char campo[25][60]){
 	}
 	return;
 }
-void gameloop(char campo[25][60],int navex, int navey){
+int gameloop(char campo[25][60],int navex, int navey){
 	int lose=0, d=1;
+	int resu=0;
+	time_t tiempoInicial=time(NULL);
+	float tiempoLimite=10;
 	do{
 	draw(campo);
 	if(d==1){
@@ -70,8 +80,11 @@ void gameloop(char campo[25][60],int navex, int navey){
 	input(campo,&navex,&navey);
 	input(campo,&navex,&navey);
 	//update();
-	}while(lose==0);
-	return;
+	}while(lose==0&&(time(NULL)-tiempoInicial)<tiempoLimite);
+	if (lose==0) {
+		resu=1;
+	}
+	return resu;
 }
 void draw(char campo[25][60]){
 	system("cls");
