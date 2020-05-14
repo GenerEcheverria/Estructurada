@@ -105,7 +105,7 @@ void gameloop(char campo[V][H], int pelX, int pelY, int inijug, int finjug, int 
 		draw (campo);//dibujar en pantalla
 		input (campo,&pelX,&pelY,&inijug,&finjug,&iniia,&finia,&modX,&modY,&modia, &gol);//verificar y modificar posiciones
 		update (campo,pelX,pelY,inijug,finjug,iniia,finia);	//actualizar matriz de campo
-		sleep(10);
+		sleep(1);
 	}while (gol == 0);
 	
 }		
@@ -161,14 +161,14 @@ void input(char campo[V][H], int*pelX,int *pelY, int *inijug,int *finjug, int *i
 		if(kbhit() == 1){
 			key = getch();
 			
-			if(key == '8'){
+			if(key == 'w'){
 				if(*inijug != 1){
 					*inijug -= 1;
 					*finjug -=1;
 				}
 			}
 			
-			if(key == '2'){
+			if(key == 's'){
 				if(*finjug != V-2){
 					*inijug +=1;
 					*finjug += 1;
