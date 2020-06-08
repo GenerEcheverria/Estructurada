@@ -5,11 +5,12 @@ void titulo ();
 int main (){
 	char tecla=1;
 	int i;
-	system("color 02");
 	while (tecla!=0){
+		system("color 02");
 		titulo ();
 		puts("\t\t\tSelecciona:");
 		printf("\t\t\t->"); puts(" Empezar");
+		printf("\t\t\t  "); puts(" Puntuaciones");
 		printf("\t\t\t  "); puts(" Salir");
 		puts("\n\t\t\t\t\t\tWCORP. 2020.");
 		tecla=getch();
@@ -18,6 +19,23 @@ int main (){
 			titulo();
 			puts("\t\t\tSelecciona:");
 			printf("\t\t\t  "); puts(" Empezar");
+			printf("\t\t\t->"); puts(" Puntuaciones");
+			printf("\t\t\t  "); puts(" Salir");
+			puts("\n\t\t\t\t\t\tWCORP. 2020.");
+			tecla=getch();
+			system("cls");
+			if (tecla==13){
+				//puntuacion;
+			}
+			if (tecla=='w'||tecla=='W'){
+				continue;
+			}
+		}
+		if (tecla=='s'||tecla=='S') {
+			titulo();
+			puts("\t\t\tSelecciona:");
+			printf("\t\t\t  "); puts(" Empezar");
+			printf("\t\t\t  "); puts(" Puntuaciones");
 			printf("\t\t\t->"); puts(" Salir");
 			puts("\n\t\t\t\t\t\tWCORP. 2020.");
 			tecla=getch();
@@ -26,7 +44,20 @@ int main (){
 				break;
 			}
 			if (tecla=='w'||tecla=='W'){
-				continue;
+				titulo();
+				puts("\t\t\tSelecciona:");
+				printf("\t\t\t  "); puts(" Empezar");
+				printf("\t\t\t->"); puts(" Puntuaciones");
+				printf("\t\t\t  "); puts(" Salir");
+				puts("\n\t\t\t\t\t\tWCORP. 2020.");
+				tecla=getch();
+				system("cls");
+				if (tecla==13){
+					//puntuacion;
+				}
+				if (tecla=='w'||tecla=='W'){
+					continue;
+				}
 			}
 		}
 		if (tecla==13) {
