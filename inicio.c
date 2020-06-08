@@ -25,7 +25,10 @@ int main (){
 			tecla=getch();
 			system("cls");
 			if (tecla==13){
-				//puntuacion;
+					puts("puntuacion");
+					system("pause");
+					system("cls");
+					tecla=1;
 			}
 			if (tecla=='w'||tecla=='W'){
 				continue;
@@ -53,6 +56,10 @@ int main (){
 				tecla=getch();
 				system("cls");
 				if (tecla==13){
+					puts("puntuacion");
+					system("pause");
+					system("cls");
+					tecla=1;
 					//puntuacion;
 				}
 				if (tecla=='w'||tecla=='W'){
@@ -64,6 +71,9 @@ int main (){
 			//pantalla vida puntos en 0 y comienza partida
 			system("cls");
 			puts("hola");
+			/*system("cls");
+			selec();
+			system("cls");*/
 			system("pause");//prueba
 			system("cls");
 		}
