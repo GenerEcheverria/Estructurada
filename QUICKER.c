@@ -1,19 +1,21 @@
 /*
 Autor: Gener Echeverria, William Cetina, Jesus Estrella
-Version 1.1
+Version 1.2
 */
 #include<stdio.h>
 #include<conio.h>
 #include<stdlib.h>
+#include<math.h>
 #include<time.h>
 #include<windows.h>
 #define Vertical 21
 #define Horizontal 75
+#include<string.h>
 
 void titulo ();
 //selec
 void selec();
-//puntaje
+//Pantalla puntaje
 void resultado (int valor, int *acierto, int *vida);
 void puntaje(int puntos, int vidas);
 void tresCorazones ();
@@ -31,6 +33,7 @@ void introducirIA(char tabla[3][3]);
 int ganador(char tabla[3][3]);
 //asteroid
 int asteroid ();
+int lineaentremeteoritos;
 void borde (char campo[25][60]);
 int bajar (char campo[25][60]);
 void nave(char campo[25][60],int navex, int navey);
@@ -51,6 +54,17 @@ void drawPong(char campo[Vertical][Horizontal]);
 void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol);
 void update(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
 int pong();
+//Guardar puntuaciones
+typedef struct  {
+	char *nombre;
+	int puntos;
+}guardaPuntaje;
+guardaPuntaje *punt;
+void imprimirPuntuaciones();
+int posicionPuntaje (int acierto);
+void vaciar(char temp[]);
+void copiar(char temp[], int i);
+void cambio(char aux[]);
 //gameover
 void gameOver(int puntos);
 
@@ -58,11 +72,12 @@ void gameOver(int puntos);
 int main (){
 	char tecla=1;
 	int i;
-	while (tecla!=0){
+while (tecla!=0){
 		system("color 02");
 		titulo ();
 		puts("\t\t\tSelecciona:");
 		printf("\t\t\t->"); puts(" Empezar");
+		printf("\t\t\t  "); puts(" Puntuaciones");
 		printf("\t\t\t  "); puts(" Salir");
 		puts("\n\t\t\t\t\t\tWCORP. 2020.");
 		tecla=getch();
@@ -71,6 +86,25 @@ int main (){
 			titulo();
 			puts("\t\t\tSelecciona:");
 			printf("\t\t\t  "); puts(" Empezar");
+			printf("\t\t\t->"); puts(" Puntuaciones");
+			printf("\t\t\t  "); puts(" Salir");
+			puts("\n\t\t\t\t\t\tWCORP. 2020.");
+			tecla=getch();
+			system("cls");
+			if (tecla==13){
+				imprimirPuntuaciones();
+				system("cls");
+				tecla=1;
+			}
+			if (tecla=='w'||tecla=='W'){
+				continue;
+			}
+		}
+		if (tecla=='s'||tecla=='S') {
+			titulo();
+			puts("\t\t\tSelecciona:");
+			printf("\t\t\t  "); puts(" Empezar");
+			printf("\t\t\t  "); puts(" Puntuaciones");
 			printf("\t\t\t->"); puts(" Salir");
 			puts("\n\t\t\t\t\t\tWCORP. 2020.");
 			tecla=getch();
@@ -79,7 +113,22 @@ int main (){
 				break;
 			}
 			if (tecla=='w'||tecla=='W'){
-				continue;
+				titulo();
+				puts("\t\t\tSelecciona:");
+				printf("\t\t\t  "); puts(" Empezar");
+				printf("\t\t\t->"); puts(" Puntuaciones");
+				printf("\t\t\t  "); puts(" Salir");
+				puts("\n\t\t\t\t\t\tWCORP. 2020.");
+				tecla=getch();
+				system("cls");
+				if (tecla==13){
+					imprimirPuntuaciones();
+					system("cls");
+					tecla=1;
+				}
+				if (tecla=='w'||tecla=='W'){
+					continue;
+				}
 			}
 		}
 		if (tecla==13) {
@@ -103,13 +152,16 @@ void titulo (){
 	puts("\t===================================================\n");
 }
 void selec (){
-	int acierto=0, vida=3,opcion=0, juego;
+	int acierto=0, vida=3,opciondif=0, juego=0;
 	while (vida!=0) {
 		puntaje(acierto,vida);
-		sleep(2);
+		Sleep(2000);
 		system("cls");
 		srand(time(NULL));
-		juego = rand()%4; //cambiar dependiendo del numero de juegos
+		while (juego==opciondif){
+			juego = rand()%4;//cambiar dependiendo del numero de juegos
+		}
+		opciondif=juego;
 		switch (juego) {
 			case 0: resultado(preguntas(acierto),&acierto,&vida); break;
 			case 1: resultado(gato(),&acierto,&vida); break;
@@ -119,9 +171,15 @@ void selec (){
 	}
 	system("color 07");
 	gameOver(acierto);
+	posicionPuntaje (acierto);
 }
 //puntaje
 void puntaje (int puntos, int vidas){
+	if (puntos<11){
+		lineaentremeteoritos=6-trunc(puntos/2);
+	}else{
+			lineaentremeteoritos=1;
+	}
 	switch (vidas){
 		case 1:
 			system("color 04");
@@ -268,7 +326,7 @@ int preguntas(int acierto) {
 	int punto=0, opcion, respuesta;
 	time_t tiempoInicial=time(NULL);
 	float tiempoLimite; 
-	srand(time(NULL)); //probar
+	srand(time(NULL)); 
 	opcion=rand()%10; //cambiar dependiendo del numero de preguntas
 	if (acierto<=4) {
 		tiempoLimite=10.0;
@@ -281,7 +339,7 @@ int preguntas(int acierto) {
 			tiempoLimite=6;
 		}
 	}
-	
+	fflush(stdin);
 	switch (opcion) {
 			case 0: puts("El resultado de 7 x 8 es:");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
@@ -313,7 +371,7 @@ int preguntas(int acierto) {
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
-						if (respuesta==303) {
+						if (respuesta==403) {
 							punto=1;
 							system ("cls"); break;
 						} 
@@ -446,15 +504,18 @@ int loop (char tabla[3][3]){
 	imprimirTabla(tabla);
 	if (j==1){
 		puts("\tGanaste");
+		Sleep(2000);
 		return 1;
 	}
 	else {
 		if (j==0) {
 			puts("\tPerdiste"); 
+			Sleep(2000);
 			return 0;
 		}
 		else {
 			puts ("\tEmpate");
+			Sleep(2000);
 			return 2;
 		}
 	} 
@@ -719,7 +780,7 @@ int gameloop(char campo[25][60],int navex, int navey){
 	float tiempoLimite=10;
 	do{
 	draw(campo);
-	if(d==1){
+	if(d==lineaentremeteoritos){
 	meteorito(campo);
 	d=0;
 }
@@ -739,7 +800,7 @@ int gameloop(char campo[25][60],int navex, int navey){
 	if (lose==0) {
 		resu=1;
 	}
-	sleep(1);
+	Sleep(1000);
 	system ("cls");
 	return resu;
 }
@@ -1012,6 +1073,135 @@ void update(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, in
 	raqia(campo, iniia, finia); 
 	pel(campo, pelX, pelY);
 }
+//guardar puntuacion
+void imprimirPuntuaciones(){
+	char nombres[20];
+	char temp[50],aux;
+	int cont=1,i,j;
+	FILE *f;
+	f = fopen("Puntuaciones.txt","r");
+	
+	while(!feof(f)){
+		fgets(temp,50,f);
+		cont++;
+	}
+	rewind(f);
+	punt=(guardaPuntaje*)malloc(cont*sizeof(guardaPuntaje));
+	printf("\n\n\t\t\t  PUNTUACIONES");
+	 puts("\n\n\t\t  NOMBRE\t\tPUNTAJE");
+	for (i=0;!feof(f);i++){
+		vaciar(temp);
+		aux='0';
+		for(j=0;aux!='-';j++){
+			aux=fgetc(f);
+			if (aux!='-'){
+				temp[j]=aux;
+			}
+		}
+		copiar(temp,i);
+		fgets(temp,4,f);
+		punt[i].puntos = atoi(temp); //convierte numeros de string a entero
+		printf("\t\t%s\t\t\t   %d\n", punt[i].nombre, punt[i].puntos);
+	}
+	puts("\n\nPresiona una tecla para continuar.");
+	getch();
+}
+int posicionPuntaje (int acierto){
+	char nombres[20];
+	char temp[50],aux;
+	int cont=1,i,j;
+	FILE *f;
+	f = fopen("Puntuaciones.txt","r");
+	
+	while(!feof(f)){
+		fgets(temp,50,f);
+		cont++;
+	}
+	rewind(f);
+	punt=(guardaPuntaje*)malloc(cont*sizeof(guardaPuntaje));
+	for (i=0;!feof(f);i++){
+		vaciar(temp);
+		aux='0';
+		for(j=0;aux!='-';j++){
+			aux=fgetc(f);
+			if (aux!='-'){
+				temp[j]=aux;
+			}
+		}
+		copiar(temp,i);
+		fgets(temp,4,f);
+		punt[i].puntos = atoi(temp); //convierte numeros de string a entero
+		//printf("Nombre: %s    Puntos: %i \n",punt[i].nombre,punt[i].puntos); comprobar cambios
+	}
+	if (acierto<punt[2].puntos){
+		return 0;
+	}
+	puts("Escribe tu nombre: ");
+	fflush(stdin);
+	gets(nombres);
+	copiar(nombres,3);
+	punt[3].puntos=acierto;
+	//printf("Nombre: %s    Puntos: %i \n",punt[3].nombre,punt[3].puntos);
+	fclose(f);
+	//ordenar
+	int aux2, vector[4];
+	char *aux3[20]; 
+    for(i=0;i<4;i++){
+          vector[i]=punt[i].puntos;
+	}
+	for(i=0;i<4;i++){
+        for(j=0;j<4-(i+1);j++){
+        	
+            if(vector[j]<vector[j+1]){
+                aux2=vector[j];
+                *aux3=punt[j].nombre;
+                vector[j]=vector[j+1];
+                punt[j].nombre=punt[j+1].nombre;
+                vector[j+1]=aux2;
+                punt[j+1].nombre=*aux3;
+            }
+        }
+    }
+    puts("\n\n\t\t  NOMBRE\t\tPUNTAJE");
+    for(i=0;i<3;i++){
+    	punt[i].puntos=vector[i];
+    	printf("\t\t%s\t\t\t   %d\n", punt[i].nombre, punt[i].puntos);
+    }
+    Sleep(4000);
+	//remplazar lista con mejores 3
+	f = fopen("Puntuaciones.txt","w");
+	rewind(f);
+	for (i=0;i<3;i++){
+		//cambio(punt[0].nombre);
+		fprintf(f,"%s",punt[i].nombre);
+		fprintf(f,"%c",'-');
+		fprintf(f,"%i",punt[i].puntos);
+		if (i<2){
+			fprintf(f,"\n");
+		}
+	}
+	fclose(f);
+	return 0;
+}
+void vaciar(char temp[]){
+	int i;
+	for(i=0;i<50;i++){
+		temp[i]='\0';
+	}
+}
+void copiar(char temp[], int i){
+	int N = strlen(temp)+1;//strlen cuenta los caracteres de temp sin \0
+	punt[i].nombre=(char*)malloc(N*sizeof(char));
+	strcpy(punt[i].nombre,temp);
+}
+void cambio(char aux[]){
+	int i;
+	for (i=0;i<50;i++){
+		if (aux[i]=='\n'){
+			aux[i]='\0';
+		}
+	}
+}
 //gameover
 void gameOver (int puntos){
 	puts("\n\n\t #####");
@@ -1020,6 +1210,6 @@ void gameOver (int puntos){
 	puts("\t##   ## ##   ##  ##   ## ##       #   #   ## ##    ##");
 	puts("\t #####   ####### ##   ## #####    #####    # ##### ##");
 	printf("\n\t\t\t   PUNTAJE:   %d\n\n\n\t",puntos);
-	sleep(4);
+	Sleep(4000);
 	system("cls");
 }
