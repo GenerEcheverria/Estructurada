@@ -4,7 +4,7 @@ Proyecto
 
 [Trello](https://trello.com/b/cGjtn6SA/estructurada)
 
-pong, asteroid, preguntas rápidas 
+pong, asteroid, preguntas rápidas, gato 
 
 
 opciones posteriores: piedra papel o tijera, snake, nave esquivando, recolección, QTE (apagar vela)
