@@ -1,6 +1,6 @@
 /*
 Autor: Gener Echeverria, William Cetina, Jesus Estrella
-Version 1.3
+Version 1.4
 */
 #include<stdio.h>
 #include<conio.h>
@@ -363,65 +363,105 @@ int preguntas(int acierto) {
 						scanf("%d",&respuesta);
 						if (respuesta==56) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 1: puts ("El resultado de (5x2)+(6/3) es:");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==12) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 2: puts ("El resultado de 325+78 es:");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==403) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 3: puts ("La raiz cuadrada de 121 es: ");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==11) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 4: puts ("La raiz cuadrada de 144 es: ");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==12) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			
 			case 5: puts ("El resultado de 7+25x4-12 es: ");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
@@ -429,67 +469,106 @@ int preguntas(int acierto) {
 						scanf("%d",&respuesta);
 						if (respuesta==95) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 6: puts ("El resultado de (-50)x(-50) es: ");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==2500) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 7: puts ("El resultado de (3)x(-3)x(3)x(-3) es: ");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==81) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				}
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 8: puts ("El resultado de 4*3-2/1 es: ");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==10) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 			case 9: puts ("El resultado de 4*3-2/1 es: ");
 				while ((time(NULL)-tiempoInicial)<tiempoLimite){
 					if (kbhit()) {
 						scanf("%d",&respuesta);
 						if (respuesta==10) {
 							punto=1;
-							system ("cls"); break;
+							puts("Correcto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						} 
 						else {
-							system ("cls"); break;
+							puts("Incorrecto");
+							Sleep(1000);
+							system ("cls"); return punto;
 						}
 					}
-				} system ("cls"); break;
+				} 
+				puts("\nSe acabo el tiempo");
+				Sleep(1000); 
+				system ("cls"); 
+				break;
 	}
-	
 	return punto;
 }
 //gato
@@ -686,7 +765,7 @@ int ganador (char tabla[3][3]){
 		}
 		if (tabla[0][0]==tabla[1][0]&& tabla[0][0]==tabla[2][0]){
 			if (tabla[0][0]=='X'){
-				return 1; //ganar
+				return 1; 
 			}
 			else {
 				return 0;
@@ -854,7 +933,6 @@ int bajar (char campo[25][60]){
 return w;
 }
 void input(char campo[25][60],int *navex, int *navey){
-	//parte de verificar
 	char key;
 	if (kbhit()==1){
 		key=getch();
@@ -1157,7 +1235,6 @@ int posicionPuntaje (int acierto){
 	gets(nombres);
 	copiar(nombres,3);
 	punt[3].puntos=acierto;
-	//printf("Nombre: %s    Puntos: %i \n",punt[3].nombre,punt[3].puntos);
 	fclose(f);
 	//ordenar
 	int aux2, vector[4];
