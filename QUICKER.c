@@ -1,6 +1,6 @@
 /*
 Autor: Gener Echeverria, William Cetina, Jesus Estrella
-Version 1.2
+Version 1.3
 */
 #include<stdio.h>
 #include<conio.h>
@@ -34,6 +34,10 @@ int ganador(char tabla[3][3]);
 //asteroid
 int asteroid ();
 int lineaentremeteoritos;
+int controlpreguntas;
+int preguntabloqueada1=12;
+int preguntabloqueada2=12;
+int intervaloreiniciopreguntas;
 void borde (char campo[25][60]);
 int bajar (char campo[25][60]);
 void nave(char campo[25][60],int navex, int navey);
@@ -152,16 +156,24 @@ void titulo (){
 	puts("\t===================================================\n");
 }
 void selec (){
-	int acierto=0, vida=3,opciondif=0, juego=0;
+	int acierto=0, vida=3,opciona=0, opcionb=0,juego=0,recarga=1;
 	while (vida!=0) {
 		puntaje(acierto,vida);
 		Sleep(2000);
 		system("cls");
 		srand(time(NULL));
-		while (juego==opciondif){
+		if(recarga==4){
+		opciona=0;
+		opcionb=0;
+		juego=0;
+		recarga=1;	
+		}
+		while (juego==opciona||juego==opcionb){
 			juego = rand()%4;//cambiar dependiendo del numero de juegos
 		}
-		opciondif=juego;
+		opcionb=opciona;
+		opciona=juego;
+		recarga++;
 		switch (juego) {
 			case 0: resultado(preguntas(acierto),&acierto,&vida); break;
 			case 1: resultado(gato(),&acierto,&vida); break;
@@ -323,11 +335,15 @@ void unCorazon(){
 }
 //preguntas
 int preguntas(int acierto) {
-	int punto=0, opcion, respuesta;
+	int punto=0, opcion=preguntabloqueada1, respuesta;
 	time_t tiempoInicial=time(NULL);
 	float tiempoLimite; 
 	srand(time(NULL)); 
-	opcion=rand()%10; //cambiar dependiendo del numero de preguntas
+	while (opcion==preguntabloqueada1||opcion==preguntabloqueada2){
+		opcion=rand()%10;//cambiar dependiendo del numero de preguntas
+	}
+	preguntabloqueada2=preguntabloqueada1;
+	preguntabloqueada1=opcion;
 	if (acierto<=4) {
 		tiempoLimite=10.0;
 	}
