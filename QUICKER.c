@@ -880,6 +880,7 @@ int gameloop(char campo[25][60],int navex, int navey){
 	time_t tiempoInicial=time(NULL);
 	float tiempoLimite=10;
 	do{
+		printf("Tiempo: %.0f",tiempoLimite-(time(NULL)-tiempoInicial));
 	draw(campo);
 	if(d==lineaentremeteoritos){
 	meteorito(campo);
