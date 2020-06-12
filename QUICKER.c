@@ -1,6 +1,6 @@
 /*
 Autor: Gener Echeverria, William Cetina, Jesus Estrella
-Version 1.4
+Version 0.4
 */
 #include<stdio.h>
 #include<conio.h>
@@ -13,6 +13,7 @@ Version 1.4
 #include<string.h>
 
 void titulo ();
+int opcionesMenu(int i);
 //selec
 void selec();
 //Pantalla puntaje
@@ -23,6 +24,20 @@ void dosCorazones();
 void unCorazon();
 //preguntas
 int preguntas(int acierto);
+int preguntabloqueada1=12;
+int preguntabloqueada2=12;
+int controlpreguntas;
+int intervaloreiniciopreguntas;
+int pregunta0(int i);
+int pregunta1(int i);
+int pregunta2(int i);
+int pregunta3(int i);
+int pregunta4(int i);
+int pregunta5(int i);
+int pregunta6(int i);
+int pregunta7(int i);
+int pregunta8(int i);
+int pregunta9(int i);
 //gato
 int gato();
 int loop(char tabla [3][3]);
@@ -34,10 +49,6 @@ int ganador(char tabla[3][3]);
 //asteroid
 int asteroid ();
 int lineaentremeteoritos;
-int controlpreguntas;
-int preguntabloqueada1=12;
-int preguntabloqueada2=12;
-int intervaloreiniciopreguntas;
 void borde (char campo[25][60]);
 int bajar (char campo[25][60]);
 void nave(char campo[25][60],int navex, int navey);
@@ -74,72 +85,41 @@ void gameOver(int puntos);
 
 
 int main (){
-	char tecla=1;
-	int i;
-while (tecla!=0){
+	char tecla;
+	int seleccion, i=0;
+	while (tecla!=10){
 		system("color 02");
 		titulo ();
-		puts("\t\t\tSelecciona:");
-		printf("\t\t\t->"); puts(" Empezar");
-		printf("\t\t\t  "); puts(" Puntuaciones");
-		printf("\t\t\t  "); puts(" Salir");
-		puts("\n\t\t\t\t\t\tWCORP. 2020.");
+		seleccion=opcionesMenu(i);
 		tecla=getch();
-		system("cls");
 		if (tecla=='s'||tecla=='S') {
-			titulo();
-			puts("\t\t\tSelecciona:");
-			printf("\t\t\t  "); puts(" Empezar");
-			printf("\t\t\t->"); puts(" Puntuaciones");
-			printf("\t\t\t  "); puts(" Salir");
-			puts("\n\t\t\t\t\t\tWCORP. 2020.");
-			tecla=getch();
-			system("cls");
-			if (tecla==13){
-				imprimirPuntuaciones();
-				system("cls");
-				tecla=1;
-			}
-			if (tecla=='w'||tecla=='W'){
-				continue;
-			}
+			i++;
 		}
-		if (tecla=='s'||tecla=='S') {
-			titulo();
-			puts("\t\t\tSelecciona:");
-			printf("\t\t\t  "); puts(" Empezar");
-			printf("\t\t\t  "); puts(" Puntuaciones");
-			printf("\t\t\t->"); puts(" Salir");
-			puts("\n\t\t\t\t\t\tWCORP. 2020.");
-			tecla=getch();
-			system("cls");
-			if (tecla==13){
-				break;
-			}
-			if (tecla=='w'||tecla=='W'){
-				titulo();
-				puts("\t\t\tSelecciona:");
-				printf("\t\t\t  "); puts(" Empezar");
-				printf("\t\t\t->"); puts(" Puntuaciones");
-				printf("\t\t\t  "); puts(" Salir");
-				puts("\n\t\t\t\t\t\tWCORP. 2020.");
-				tecla=getch();
+		if (tecla=='w'||tecla=='W'){
+			i--;
+		}
+		if(tecla==13){
+			if (seleccion==0){
 				system("cls");
-				if (tecla==13){
-					imprimirPuntuaciones();
+				selec();
+			}
+			else {
+				if (seleccion==1){
 					system("cls");
-					tecla=1;
+					imprimirPuntuaciones();
 				}
-				if (tecla=='w'||tecla=='W'){
-					continue;
+				else {
+					tecla=10;
 				}
 			}
 		}
-		if (tecla==13) {
-			system("cls");
-			selec();
-			system("cls");
+		if (i<0){
+			i=0;
 		}
+		if (i>2){
+			i=2;
+		}
+		system("cls");
 	}
 	return 0;
 }
@@ -154,6 +134,26 @@ void titulo (){
 	puts("\t   #####    ######  ##  #####  ##  ##  ####  ##");
 	puts("\t        #   ");
 	puts("\t===================================================\n");
+}
+int opcionesMenu(int i){
+	switch (i){
+		case 0: puts("\t\t\tSelecciona:");
+				puts("\t\t\t-> Empezar"); 
+				puts("\t\t\t   Puntuaciones"); 
+				puts("\t\t\t   Salir"); 
+				puts("\n\t\t\t\t\t\tWCORP. 2020."); return 0;
+		case 1: puts("\t\t\tSelecciona:");
+				puts("\t\t\t   Empezar"); 
+				puts("\t\t\t-> Puntuaciones"); 
+				puts("\t\t\t   Salir"); 
+				puts("\n\t\t\t\t\t\tWCORP. 2020."); return 1;
+		case 2: puts("\t\t\tSelecciona:");
+				puts("\t\t\t   Empezar"); 
+				puts("\t\t\t   Puntuaciones"); 
+				puts("\t\t\t-> Salir"); 
+				puts("\n\t\t\t\t\t\tWCORP. 2020."); return 2;
+	}
+	return 0;
 }
 void selec (){
 	int acierto=0, vida=3,opciona=0, opcionb=0,juego=0,recarga=1;
@@ -335,7 +335,8 @@ void unCorazon(){
 }
 //preguntas
 int preguntas(int acierto) {
-	int punto=0, opcion=preguntabloqueada1, respuesta;
+	int punto=0, opcion=preguntabloqueada1, respuesta, i=0, correcto;
+	char tecla=1;
 	time_t tiempoInicial=time(NULL);
 	float tiempoLimite; 
 	srand(time(NULL)); 
@@ -356,220 +357,225 @@ int preguntas(int acierto) {
 		}
 	}
 	fflush(stdin);
-	switch (opcion) {
-			case 0: puts("El resultado de 7 x 8 es:");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==56) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 1: puts ("El resultado de (5x2)+(6/3) es:");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==12) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 2: puts ("El resultado de 325+78 es:");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==403) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 3: puts ("La raiz cuadrada de 121 es: ");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==11) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 4: puts ("La raiz cuadrada de 144 es: ");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==12) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			
-			case 5: puts ("El resultado de 7+25x4-12 es: ");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==95) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 6: puts ("El resultado de (-50)x(-50) es: ");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==2500) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 7: puts ("El resultado de (3)x(-3)x(3)x(-3) es: ");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==81) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
+	while ((time(NULL)-tiempoInicial)<tiempoLimite){
+		system("cls");
+		puts("=============================================\n");
+		printf("Tiempo: %.0f\n",tiempoLimite-(time(NULL)-tiempoInicial));
+		switch (opcion){
+			case 0: correcto=pregunta0(i); break;
+			case 1: correcto=pregunta1(i); break;
+			case 2: correcto=pregunta2(i); break;
+			case 3: correcto=pregunta3(i); break;
+			case 4: correcto=pregunta4(i); break;
+			case 5: correcto=pregunta5(i); break;
+			case 6: correcto=pregunta6(i); break;
+			case 7: correcto=pregunta7(i); break;
+			case 8: correcto=pregunta8(i); break;
+			case 9: correcto=pregunta9(i); break;
+		}
+		puts("\n=============================================");
+		if (kbhit()){
+			tecla=getch();
+			if (tecla=='s') {
+				i++;
+			}
+			if (tecla=='w'){
+				i--;
+			}
+			if(tecla==13){
+				if (correcto==1){
+					puts("Correcto");
+					Sleep(1000);
+					system("cls");
+					return 1;
 				}
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 8: puts ("El resultado de 4*3-2/1 es: ");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==10) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
-			case 9: puts ("El resultado de 4*3-2/1 es: ");
-				while ((time(NULL)-tiempoInicial)<tiempoLimite){
-					if (kbhit()) {
-						scanf("%d",&respuesta);
-						if (respuesta==10) {
-							punto=1;
-							puts("Correcto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						} 
-						else {
-							puts("Incorrecto");
-							Sleep(1000);
-							system ("cls"); return punto;
-						}
-					}
-				} 
-				puts("\nSe acabo el tiempo");
-				Sleep(1000); 
-				system ("cls"); 
-				break;
+				else {
+					puts("Incorrecto");
+					Sleep(1000);
+					system("cls");
+					return 0;
+				}
+			}
+		}
+		if (i<0){
+			i=0;
+		}
+		if (i>2){
+			i=2;
+		}
+	} puts ("Se acabo el tiempo"); Sleep(1000);
+	system("cls");
+	return 0;
+}
+int pregunta0(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de 7 x 8 es:");
+				puts("\t\t->56"); 
+				puts("\t\t  57"); 
+				puts("\t\t  58"); return 1;
+		case 1: puts("\n\tEl resultado de 7 x 8 es:");
+				puts("\t\t  56"); 
+				puts("\t\t->57"); 
+				puts("\t\t  58"); break;
+		case 2: puts("\n\tEl resultado de 7 x 8 es:");
+				puts("\t\t  56"); 
+				puts("\t\t  57"); 
+				puts("\t\t->58"); break;
 	}
-	return punto;
+	return 0;
+}
+int pregunta1(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de (5x2)+(6/3) es:");
+				puts("\t\t->11"); 
+				puts("\t\t  12"); 
+				puts("\t\t  13"); break;
+		case 1: puts("\n\tEl resultado de (5x2)+(6/3) es:");
+				puts("\t\t  11"); 
+				puts("\t\t->12"); 
+				puts("\t\t  13"); return 1;
+		case 2: puts("\n\tEl resultado de (5x2)+(6/3) es:");
+				puts("\t\t  11"); 
+				puts("\t\t  12"); 
+				puts("\t\t->13"); break;
+	}
+	return 0;
+}
+int pregunta2(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de 325+78 es:");
+				puts("\t\t->401"); 
+				puts("\t\t  402"); 
+				puts("\t\t  403"); break;
+		case 1: puts("\n\tEl resultado de 325+78 es:");
+				puts("\t\t  401"); 
+				puts("\t\t->402"); 
+				puts("\t\t  403"); break;
+		case 2: puts("\n\tEl resultado de 325+78 es:");
+				puts("\t\t  401"); 
+				puts("\t\t  402"); 
+				puts("\t\t->403"); return 1;
+	}
+	return 0;
+}
+int pregunta3(int i){
+	switch (i){
+		case 0: puts("\n\tLa raiz cuadrada de 121 es:");
+				puts("\t\t->11"); 
+				puts("\t\t  12"); 
+				puts("\t\t  13"); return 1;
+		case 1: puts("\n\tLa raiz cuadrada de 121 es:");
+				puts("\t\t  11"); 
+				puts("\t\t->12"); 
+				puts("\t\t  13"); break;
+		case 2: puts("\n\tLa raiz cuadrada de 121 es:");
+				puts("\t\t  11"); 
+				puts("\t\t  12"); 
+				puts("\t\t->13"); break;
+	}
+	return 0;
+}
+int pregunta4(int i){
+	switch (i){
+		case 0: puts("\n\tLa raiz cuadrada de 144 es:");
+				puts("\t\t->11"); 
+				puts("\t\t  12"); 
+				puts("\t\t  13"); break;
+		case 1: puts("\n\tLa raiz cuadrada de 144 es:");
+				puts("\t\t  11"); 
+				puts("\t\t->12"); 
+				puts("\t\t  13"); return 1;
+		case 2: puts("\n\tLa raiz cuadrada de 144 es:");
+				puts("\t\t  11"); 
+				puts("\t\t  12"); 
+				puts("\t\t->13"); break;
+	}
+	return 0;
+}
+int pregunta5(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de 7+25x4-12 es: ");
+				puts("\t\t->93"); 
+				puts("\t\t  94"); 
+				puts("\t\t  95"); break;
+		case 1: puts("\n\tEl resultado de 7+25x4-12 es: ");
+				puts("\t\t  93"); 
+				puts("\t\t->94"); 
+				puts("\t\t  95"); break;
+		case 2: puts("\n\tEl resultado de 7+25x4-12 es: ");
+				puts("\t\t  93"); 
+				puts("\t\t  94"); 
+				puts("\t\t->95"); return 1;
+	}
+	return 0;
+}
+int pregunta6(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de (-50)x(-50) es: ");
+				puts("\t\t-> 2500"); 
+				puts("\t\t  -2500"); 
+				puts("\t\t   5000"); return 1;
+		case 1: puts("\n\tEl resultado de (-50)x(-50) es: ");
+				puts("\t\t   2500"); 
+				puts("\t\t->-2500"); 
+				puts("\t\t   5000"); break;
+		case 2: puts("\n\tEl resultado de (-50)x(-50) es: ");
+				puts("\t\t   2500"); 
+				puts("\t\t  -2500"); 
+				puts("\t\t-> 500"); break;
+	}
+	return 0;
+}
+int pregunta7(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de (3)x(-3)x(3)x(-3) es: ");
+				puts("\t\t->-81"); 
+				puts("\t\t   81"); 
+				puts("\t\t   27"); break;
+		case 1: puts("\n\tEl resultado de (3)x(-3)x(3)x(-3) es:");
+				puts("\t\t  -81"); 
+				puts("\t\t-> 81"); 
+				puts("\t\t   27"); return 1;
+		case 2: puts("\n\tEl resultado de (3)x(-3)x(3)x(-3) es:");
+				puts("\t\t  -81"); 
+				puts("\t\t   81"); 
+				puts("\t\t-> 27"); break;
+	}
+	return 0;
+}
+int pregunta8(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de 4*3-2/1 es: ");
+				puts("\t\t->12"); 
+				puts("\t\t  11"); 
+				puts("\t\t  10"); break;
+		case 1: puts("\n\tEl resultado de 4*3-2/1 es:");
+				puts("\t\t  12"); 
+				puts("\t\t->11"); 
+				puts("\t\t  10"); break;
+		case 2: puts("\n\tEl resultado de 4*3-2/1 es:");
+				puts("\t\t  12"); 
+				puts("\t\t  11"); 
+				puts("\t\t->10"); return 1;
+	}
+	return 0;
+}
+int pregunta9(int i){
+	switch (i){
+		case 0: puts("\n\tEl resultado de -1*200+50 es: ");
+				puts("\t\t->-150"); 
+				puts("\t\t  -250"); 
+				puts("\t\t  -300"); return 1;
+		case 1: puts("\n\tEl resultado de -1*200+50 es:");
+				puts("\t\t  -150"); 
+				puts("\t\t->-250"); 
+				puts("\t\t  -300"); break;
+		case 2: puts("\n\tEl resultado de -1*200+50 es:");
+				puts("\t\t  -150"); 
+				puts("\t\t  -250"); 
+				puts("\t\t->-300"); break;
+	}
+	return 0;
 }
 //gato
 int gato (){
