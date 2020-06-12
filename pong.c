@@ -34,7 +34,7 @@ int pong (int acierto) {
 	do {
 		pelY=rand()%21;
 		
-	}while (pelY<2 && pelY>19);	
+	}while (pelY<3 && pelY>19);	
 	switch (acierto){
 		case 0:
 		case 1:
@@ -62,8 +62,8 @@ int pong (int acierto) {
 				 finjug=11; 
 				 break;
 	}
-	iniia = 5;
-	finia = 18;
+	iniia = 5;//5
+	finia = 18;//18
 	//modificacion
 	modX = -1;
 	modY = -1;
