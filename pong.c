@@ -33,7 +33,7 @@ int pong (int acierto) {
 	do {
 		pelY=rand()%21;
 		
-	}while (pelY<2 && pelY>19);	
+	}while (pelY<2 || pelY>19);	
 	switch (acierto){
 		case 0:
 		case 1:
@@ -132,16 +132,20 @@ void leercamp(char  campo[Vertical][Horizontal]){
 }
 
 int gameloopPong(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia){
+	time_t tiempoInicial=time(NULL);
+	float tiempoLimite=30; 
 	int gol;
 	gol = 0;
 	int res = 0;
-	do{
+	while ((time(NULL)-tiempoInicial)<tiempoLimite) {
 		drawPong (campo);//dibujar en pantalla
 		inputPong (campo,&pelX,&pelY,&inijug,&finjug,&iniia,&finia,&modX,&modY,&modia, &gol);//verificar y modificar posiciones
 		update (campo,pelX,pelY,inijug,finjug,iniia,finia);	//actualizar matriz de campo
-	
-	}while (gol == 0);
-	
+		printf("Tiempo: %.0f\n",tiempoLimite-(time(NULL)-tiempoInicial));
+		if (gol!=0) {
+			break;
+		}
+	}	
 	if(pelX==1){
 			res = 1;
 	}
