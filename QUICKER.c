@@ -68,7 +68,7 @@ int gameloopPong(char campo[Vertical][Horizontal], int pelX, int pelY, int iniju
 void drawPong(char campo[Vertical][Horizontal]);
 void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug,int *finjug, int *iniia, int *finia, int *modX, int *modY, int *modia, int *gol);
 void update(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
-int pong();
+int pong(int acierto);
 //Guardar puntuaciones
 typedef struct  {
 	char *nombre;
@@ -163,10 +163,10 @@ void selec (){
 		system("cls");
 		srand(time(NULL));
 		if(recarga==4){
-		opciona=0;
-		opcionb=0;
-		juego=0;
-		recarga=1;	
+			opciona=0;
+			opcionb=0;
+			juego=0;
+			recarga=1;	
 		}
 		while (juego==opciona||juego==opcionb){
 			juego = rand()%4;//cambiar dependiendo del numero de juegos
@@ -178,7 +178,7 @@ void selec (){
 			case 0: resultado(preguntas(acierto),&acierto,&vida); break;
 			case 1: resultado(gato(),&acierto,&vida); break;
 			case 2: resultado(asteroid(),&acierto,&vida);break;
-			case 3: resultado(pong(),&acierto,&vida);break;
+			case 3: resultado(pong(acierto),&acierto,&vida);break;
 		}
 	}
 	system("color 07");
@@ -880,23 +880,23 @@ int gameloop(char campo[25][60],int navex, int navey){
 	time_t tiempoInicial=time(NULL);
 	float tiempoLimite=10;
 	do{
-		printf("Tiempo: %.0f",tiempoLimite-(time(NULL)-tiempoInicial));
-	draw(campo);
-	if(d==lineaentremeteoritos){
-	meteorito(campo);
-	d=0;
-}
-	lose=bajar(campo);
-	d++;
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
-	input(campo,&navex,&navey);
+		printf("Tiempo: %.0f",tiempoLimite-(time(NULL)-tiempoInicial));// prueba
+		draw(campo);
+		if(d==lineaentremeteoritos){
+			meteorito(campo);
+			d=0;
+		}
+		lose=bajar(campo);
+		d++;
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
+		input(campo,&navex,&navey);
 	//update();
 	}while(lose==0&&(time(NULL)-tiempoInicial)<tiempoLimite);
 	if (lose==0) {
@@ -993,28 +993,55 @@ void input(char campo[25][60],int *navex, int *navey){
 return;	
 }
 //pong
-int pong () {
-	int pelX,pelY,inijug,finjug,iniia,finia;//posicion
+int pong (int acierto) {
+	int pelX,pelY=0,inijug,finjug,iniia,finia;//posicion
 	int modX, modY, modia;//modificacion
 	char campo[Vertical][Horizontal];
 	int final = 0;
 	//posicion
 	pelX = 37; 
-	pelY=10;
-	
-	inijug = 8;
-	finjug = 12;
-	
+	srand(time(NULL));
+	do {
+		pelY=rand()%14;
+		
+	}while (pelY<3);	
+	switch (acierto){
+		case 0:
+		case 1:
+		case 2: inijug=5;;
+				finjug=15; 
+				break;
+		case 3: 
+		case 4:
+		case 5: inijug=6;;
+				finjug=14; 
+				break;
+		case 6: 
+		case 7:
+		case 8: inijug=7;;
+				finjug=13; 
+				break;
+		case 9:
+		case 10:	
+		case 11: inijug=8;;
+				finjug=12; 
+				break;
+		case 12:
+		case 13:
+		case 14: inijug=9;;
+				 finjug=11; 
+				 break;
+	}
+	if (acierto>14){
+		inijug=9;;
+		finjug=11; 
+	}
 	iniia = 5;
 	finia = 18;
-	
 	//modificacion
-	
 	modX = -1;
 	modY = -1;
-	
 	modia = -1;
-	
 	inicio (campo,pelX,pelY,inijug,finjug,iniia,finia);
 	final = gameloopPong (campo, pelX,pelY,inijug,finjug,iniia,finia,modX,modY,modia);
 	system("cls");
@@ -1040,12 +1067,16 @@ void bordePong (char campo[Vertical][Horizontal]){
 			if(i == 0 || i==Vertical-1){
 				campo[i][j] = '-';
 			}
-			else if (j == 0 || j == Horizontal-1){
-				campo[i][j] = '|';
-			}
-			else{
-				campo[i][j] = ' ';
-			}
+			else {
+				if (j == 0 || j == Horizontal-1){
+					campo[i][j] = '|';
+				}
+				else {
+					
+					campo[i][j] = ' ';
+					
+				}	
+			} 
 		}
 	}
 }
@@ -1070,29 +1101,33 @@ void pel ( char campo[Vertical][Horizontal], int pelX, int pelY ){
 	campo[pelY][pelX] = 'O';
 }
 void leercamp(char  campo[Vertical][Horizontal]){
-int i,j;
-for(i = 0;i<Vertical;i++){
-	for(j= 0; j<Horizontal;j++){
-		printf ("%c", campo[i][j]);
-	}
-	printf("\n");
+	int i,j;
+	for(i = 0;i<Vertical;i++){
+		for(j= 0; j<Horizontal;j++){
+			printf ("%c", campo[i][j]);
+		}
+		printf("\n");
 	}
 }
 
 int gameloopPong(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia, int modX, int modY, int modia){
+	time_t tiempoInicial=time(NULL);
+	float tiempoLimite=30; 
 	int gol;
 	gol = 0;
 	int res = 0;
-	do{
+	while ((time(NULL)-tiempoInicial)<tiempoLimite) {
 		drawPong (campo);//dibujar en pantalla
 		inputPong (campo,&pelX,&pelY,&inijug,&finjug,&iniia,&finia,&modX,&modY,&modia, &gol);//verificar y modificar posiciones
 		update (campo,pelX,pelY,inijug,finjug,iniia,finia);	//actualizar matriz de campo
-	
-	}while (gol == 0);
-	
+		printf("Tiempo: %.0f\n",tiempoLimite-(time(NULL)-tiempoInicial));
+		if (gol!=0) {
+			break;
+		}
+	}	
 	if(pelX==1){
 			res = 1;
-		}
+	}
 		else{
 			res = 2;
 		}
@@ -1111,53 +1146,44 @@ void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug
 	if (*pelY == 1|| *pelY== Vertical-2){
 		*modY *=-1;
 	}
-	
 	if (*pelX == 1|| *pelX == Horizontal - 2){
 		*gol = 1;
 	}
-	
 	if (*pelX == 4){
-		for(i== (*inijug); i <= (*finjug); i++){
+		for(i= (*inijug); i <= (*finjug); i++){
 			if(i==(*pelY)){
 				*modX *= -1;
 			}
 		}
 	}
-	
 	if (*pelX == Horizontal - 5){
 		for( i = (*iniia); i <= (*finia); i++){
-		 *modX *=-1;
+			if (i==(*pelY)){
+				*modX *=-1;
+			}
 		}
 	}
 	
-	if(*iniia=1 || *finia ==Vertical-1){
+	if(*iniia==1 || *finia ==Vertical-1){
 		*modia *=-1;
 	}
-	
 	//Modificacion
-	
 	if (*gol == 0){
-	
 		//Pelota:
 		*pelX += (*modX);
 		*pelY += (*modY);
-	
 		//Raqueta ia:
-	
 		*iniia += (*modia);
 		*finia += (*modia);
-		
 		//Raqueta jug:
-		if(kbhit() == 1){
+		if(kbhit()){
 			key = getch();
-			
 			if(key == 'w'){
 				if(*inijug != 1){
 					*inijug -= 1;
 					*finjug -=1;
 				}
 			}
-			
 			if(key == 's'){
 				if(*finjug != Vertical-2){
 					*inijug +=1;
