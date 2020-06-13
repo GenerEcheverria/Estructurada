@@ -16,7 +16,7 @@ void update(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, in
 int pong(int acierto);
 
 int main () {
-	int acierto=7;//prueba
+	int acierto=19;//prueba
 	printf("%d", pong(acierto));
 	system("pause");
 	
@@ -31,9 +31,9 @@ int pong (int acierto) {
 	pelX = 37; 
 	srand(time(NULL));
 	do {
-		pelY=rand()%21;
+		pelY=rand()%14;
 		
-	}while (pelY<2 || pelY>19);	
+	}while (pelY<3);	
 	switch (acierto){
 		case 0:
 		case 1:
@@ -60,6 +60,10 @@ int pong (int acierto) {
 		case 14: inijug=9;;
 				 finjug=11; 
 				 break;
+	}
+	if (acierto>14){
+		inijug=9;;
+		finjug=11; 
 	}
 	iniia = 5;
 	finia = 18;
@@ -92,12 +96,16 @@ void bordePong (char campo[Vertical][Horizontal]){
 			if(i == 0 || i==Vertical-1){
 				campo[i][j] = '-';
 			}
-			else if (j == 0 || j == Horizontal-1){
-				campo[i][j] = '|';
-			}
-			else{
-				campo[i][j] = ' ';
-			}
+			else {
+				if (j == 0 || j == Horizontal-1){
+					campo[i][j] = '|';
+				}
+				else {
+					
+					campo[i][j] = ' ';
+					
+				}	
+			} 
 		}
 	}
 }
@@ -171,7 +179,7 @@ void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug
 		*gol = 1;
 	}
 	if (*pelX == 4){
-		for(i== (*inijug); i <= (*finjug); i++){
+		for(i= (*inijug); i <= (*finjug); i++){
 			if(i==(*pelY)){
 				*modX *= -1;
 			}
@@ -197,7 +205,7 @@ void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug
 		*iniia += (*modia);
 		*finia += (*modia);
 		//Raqueta jug:
-		if(kbhit() == 1){
+		if(kbhit()){
 			key = getch();
 			if(key == 'w'){
 				if(*inijug != 1){
