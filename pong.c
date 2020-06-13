@@ -3,7 +3,6 @@
 #define Vertical 21
 #define Horizontal 75
 #include<time.h>
-
 void inicio(char campo[Vertical][Horizontal], int pelX, int pelY, int inijug, int finjug, int iniia, int finia);
 void bordePong (char campo[Vertical][Horizontal]);
 void raqjug(char campo[Vertical][Horizontal], int inijug, int finjug);
@@ -24,7 +23,7 @@ int main () {
 }
 
 int pong (int acierto) {
-	int pelX,pelY,inijug,finjug,iniia,finia;//posicion
+	int pelX,pelY=0,inijug,finjug,iniia,finia;//posicion
 	int modX, modY, modia;//modificacion
 	char campo[Vertical][Horizontal];
 	int final = 0;
@@ -34,7 +33,7 @@ int pong (int acierto) {
 	do {
 		pelY=rand()%21;
 		
-	}while (pelY<3 && pelY>19);	
+	}while (pelY<2 && pelY>19);	
 	switch (acierto){
 		case 0:
 		case 1:
@@ -62,8 +61,8 @@ int pong (int acierto) {
 				 finjug=11; 
 				 break;
 	}
-	iniia = 5;//5
-	finia = 18;//18
+	iniia = 5;
+	finia = 18;
 	//modificacion
 	modX = -1;
 	modY = -1;
@@ -182,7 +181,7 @@ void inputPong(char campo[Vertical][Horizontal], int*pelX,int *pelY, int *inijug
 		}
 	}
 	
-	if(*iniia=1 || *finia ==Vertical-1){
+	if(*iniia==1 || *finia ==Vertical-1){
 		*modia *=-1;
 	}
 	//Modificacion
